@@ -52,9 +52,9 @@ import org.springframework.util.Assert;
  * @see org.springframework.context.support.GenericXmlApplicationContext
  */
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
-
+	//注解bean定义读取器，主要作用是用来读取被注解的了bean
 	private final AnnotatedBeanDefinitionReader reader;
-
+	//扫描器，它仅仅是在我们外部手动调用 .scan 等方法才有用，常规方式是不会用到scanner对象的
 	private final ClassPathBeanDefinitionScanner scanner;
 
 
@@ -63,7 +63,10 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
+		//会调用父类的无参构造方法，创建DefaultListableBeanFactory
+		//初始化一个Bean读取器
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		//初始化一个扫描器，它仅仅是在我们外部手动调用 .scan 等方法才有用，常规方式是不会用到scanner对象的
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -84,8 +87,18 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
+		//调用构造方法（做了三件事）
+		//会先调用父类GenericApplicationContext的无参构造方法，初始化DefaultListableBeanFactory()来创建beanFactory
+		//本类的构造器初始化一个this.reader和this.scanner，AnnotatedBeanDefinitionReader是一个读取器，ClassPathBeanDefinitionScanner是一个扫描器，scanner是共提供外部手动调用，作用不是很大
 		this();
+		//注册我们的配置类
+		//把传入的类进行注册，这里有两个情况，
+		//1.传入传统的配置类（FULL配置类，就是带有@Configuration注解的就是传统的配置了），
+		//2.传入普通的bean（Lite配置类，就是不带有@Configuration注解的类，带有@Component，@Import，@ImportResouce，@Service，@ComponentScan等注解的配置类）
+		//
 		register(componentClasses);
+		//IOC容器刷新接口
+		//上面两步知识实例化了一个工厂，注册了一些内置的Bean和我们传进去的配置类，真正的大头是在第三行代码
 		refresh();
 	}
 
