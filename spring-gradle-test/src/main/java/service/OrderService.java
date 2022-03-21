@@ -1,5 +1,7 @@
 package service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,8 +10,14 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Component
+//@DependsOn({"userService"})
 public class OrderService {
+	@Value("555")
 	 Integer money = 44;
+
+	public OrderService(Integer money) {
+		this.money = money;
+	}
 
 	public String testOrder() {
 		return money.toString();
@@ -18,5 +26,11 @@ public class OrderService {
 	public OrderService() {
 	}
 
+	public Integer getMoney() {
+		return money;
+	}
 
+	public void setMoney(Integer money) {
+		this.money = money;
+	}
 }

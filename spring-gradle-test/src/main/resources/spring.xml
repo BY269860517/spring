@@ -5,6 +5,15 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="service"></context:component-scan>
-	<bean id="userService" class="service.UserService"></bean>
+<!--	<bean id="userService" class="service.UserService"></bean>-->
 
+	<!--手动注入satar-->
+	<!--底层是通过set方法进行注入-->
+<!--	<bean name="orderService" class="service.OrderService"> <property name="money" value="888"/> </bean>-->
+	<!--构造方法注入,index为入参下标-->
+	<bean name="orderService" class="service.OrderService"><constructor-arg index="0"  value="77"/> </bean>
+	<!--手动注入end-->
+
+	<!--自动注入-->
+<!--	<bean id="userService" class="service.UserService" autowire="byType"/>-->
 </beans>

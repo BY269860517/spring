@@ -1,6 +1,7 @@
 package starter;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import service.OrderService;
 import service.UserService;
 
 /**
@@ -14,6 +15,9 @@ public class XmlStarter {
 ////		Car car =  (Car) context.getBean("car");
 ////		System.out.println(car.getName());
 		ClassPathXmlApplicationContext classPathXmlApplicationContext=new ClassPathXmlApplicationContext("spring.xml");
+//		OrderService orderService = (OrderService) classPathXmlApplicationContext.getBean("orderService");
+//		System.out.println(orderService.testOrder());
+
 		UserService userService = (UserService) classPathXmlApplicationContext.getBean("userService");
 		System.out.println(userService.testBean());
 

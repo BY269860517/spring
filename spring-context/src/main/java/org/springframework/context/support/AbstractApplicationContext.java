@@ -535,7 +535,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				//这是一个空方法
 				postProcessBeanFactory(beanFactory);
 
-				// 调用我们的bean工厂的后置处理器.（重点，核心）
+				// 调用我们的bean工厂的后置处理器.（重点，核心）扫描在这个方法里面
 				//执行自定义的BeanFactoryProcessor和内置的BeanFactoryProcessor
 				invokeBeanFactoryPostProcessors(beanFactory);
 
@@ -1140,7 +1140,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	//---------------------------------------------------------------------
 
 	@Override
-	public Object getBean(String name) throws BeansException {
+	public Object 	getBean(String name) throws BeansException {
 		assertBeanFactoryActive();
 		return getBeanFactory().getBean(name);
 	}

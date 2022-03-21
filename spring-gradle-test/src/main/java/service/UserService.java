@@ -1,6 +1,7 @@
 package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,11 +10,19 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Component
+//@DependsOn({"orderService"})
 public class UserService {
-       @Autowired
+    @Autowired
 	   OrderService orderService;
 	public String testBean(){
+		//return "getUserServiceBean";
 		return "getUserServiceBean"+orderService.testOrder();
 	}
 
+	public UserService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
+	public UserService() {
+	}
 }

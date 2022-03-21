@@ -12,7 +12,7 @@ import service.UserService;
 public class AutoStarter {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(AnnotationConfig.class);
-		UserService userService = (UserService) annotationConfigApplicationContext.getBean("userService");
+		UserService userService = (UserService) annotationConfigApplicationContext.getBean("userService1");
 		System.out.println(userService.testBean());
 
 
